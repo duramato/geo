@@ -13,9 +13,10 @@ def sheet_append(ipaddress, country):
     gc = gspread.authorize(credentials)
     sh = gc.open_by_key(spreadsheetId)
     if sh.sheet1.findall(ipaddress, in_row=None, in_column=None):
-        print("Already exists: " + ipaddress)
+        #print("Already exists: " + ipaddress)
         return
-    sh.sheet1.append_row([ipaddress,country])
+    print(ipaddress)
+    sh.sheet1.append_row([ipaddress,country], table_range="A1")
 
 
 clients = [Client(host='192.168.1.55', port=9092, username='supergonkas', password='portugal'),
