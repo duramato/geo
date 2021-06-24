@@ -8,9 +8,8 @@ def main(ip):
 
     url = 'https://ipwhois.app/json/{0}'.format(ip)
     response = urlopen(url)
-    data = json.load(response)
-    country = data['country']
-    #country = pycountry.countries.get(alpha_2=data['country']).name
+    data = response.read()
+    country = json.loads(data.decode("utf-8"))['country']
     print(country)
     return country
 
