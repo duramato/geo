@@ -3,7 +3,7 @@ import get_ip
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-def sheet_append(ipaddress, country):
+def sheet_append(ipaddress, country, code):
     spreadsheetId = '19S_R8ifPqt29uiEx4G4hsTh3i5U1C_ny7SpbrMVltxo'  # Please set the Spreadsheet ID.
 
     json_key = 'sheets.json'
@@ -15,8 +15,8 @@ def sheet_append(ipaddress, country):
     if sh.sheet1.findall(ipaddress, in_row=None, in_column=None):
         #print("Already exists: " + ipaddress)
         return
-    print(ipaddress)
-    sh.sheet1.append_row([ipaddress,country], table_range="A1")
+    print("New match: {0} {1} {2}".format(ipaddress, country, code))
+    sh.sheet1.append_row([ipaddress, country, code], table_range="A1")
 
 
 clients = [Client(host='192.168.1.55', port=9092, username='supergonkas', password='portugal'),
@@ -30,7 +30,7 @@ for c in clients:
             for peers in peers_list:
                 ipaddress = peers["address"]
                 #print(ipaddress)
-                country = get_ip.main(ipaddress)
+                country, code = get_ip.main(ipaddress)
                 if country:
-                    sheet_append(ipaddress, country)
+                    sheet_append(ipaddress, country, code)
 

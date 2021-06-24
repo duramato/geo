@@ -10,8 +10,9 @@ def main(ip):
     response = urlopen(url)
     data = response.read()
     country = json.loads(data.decode("utf-8"))['country']
-    print(country)
-    return country
+    code = json.loads(data.decode("utf-8"))['country_code']
+    #print(country)
+    return country, code
 
     #match = geolite2.lookup(ip)
     #match is not None
