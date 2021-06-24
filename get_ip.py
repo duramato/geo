@@ -6,10 +6,11 @@ def main(ip):
     import json
     from urllib.request import urlopen
 
-    url = 'http://ipinfo.io/{0}/json'.format(ip)
+    url = 'https://ipwhois.app/json/{0}'.format(ip)
     response = urlopen(url)
     data = json.load(response)
-    country =  pycountry.countries.get(alpha_2=data['country']).name
+    country = data['country']
+    #country = pycountry.countries.get(alpha_2=data['country']).name
     print(country)
     return country
 
