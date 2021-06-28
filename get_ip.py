@@ -6,6 +6,13 @@ def main(ip):
     import json
     from urllib.request import urlopen
 
+    import pygeoip
+    gi = pygeoip.GeoIP('GeoLiteCity.dat')
+    country = gi.country_name_by_addr(ip)
+    code = gi.country_code_by_addr(ip)
+    #print(country, "\n", code)
+    return country, code
+
     url = 'https://ipwhois.app/json/{0}'.format(ip)
     response = urlopen(url)
     data = response.read()
